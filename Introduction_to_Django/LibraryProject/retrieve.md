@@ -1,2 +1,0 @@
-```python
-Book.objects.all()
