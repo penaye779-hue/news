@@ -1,0 +1,156 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    color: #29186b;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+.main-header {
+    background-color: #0b1f3a;
+    color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
+    color: #ff7a00;
+}
+
+/* Navigation */
+.main-nav a,
+.category-nav a {
+    color: #0b1f3a;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: 500;
+}
+
+.main-nav a:hover,
+.category-nav a:hover {
+    color: #ff7a00;
+}
+
+/* =========================
+   NEWS LIST
+========================= */
+.news-item {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.news-item h3 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
+.news-item p {
+    margin: 0;
+    color: rgba(0,0,0,0.7);
+    font-size: 14px;
+    line-height: 1.4em;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+    background: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.category-nav a.active {
+    font-weight: bold;
+}
+
+/* Newsletter form */
+form input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    padding: 8px 12px;
+    background: #0b1f3a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+form button:hover {
+    background: #163d73;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+footer .post-news-btn {
+    display: inline-block;
+    background-color: #ff4d4f;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+footer .post-news-btn:hover {
+    background-color: #e33e41;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+}
+
+@media (max-width: 600px) {
+    .logo h1 {
+        font-size: 22px;
+    }
+
+    .main-nav a,
+    .category-nav a {
+        font-size: 12px;
+    }
+}

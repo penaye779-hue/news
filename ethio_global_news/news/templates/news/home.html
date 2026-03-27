@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ethio Global News</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+
+        /* HEADER */
+        .main-header {
+            background: #0b1f3a;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .main-header h1 a { color: #ff7a00; text-decoration: none; }
+
+        .main-nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: 500;
+        }
+
+        .main-nav a:hover { color: #ff7a00; }
+
+        /* CATEGORY NAV (FROM BASE) */
+        .category-nav {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .category-nav a {
+            color: #fff;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .category-nav a:hover { color: #ff7a00; }
+
+        /* SUBSCRIBE */
+        .main-header form {
+            display: flex;
+            align-items: center;
+        }
+
+        .main-header form input {
+            display: none;
+            padding: 5px 8px;
+            margin-right: 5px;
+        }
+
+        .main-header form.active input {
+            display: inline-block;
+        }
+
+        .main-header form button {
+            padding: 5px 10px;
+            background: #ff7a00;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* NEWS */
+        .news-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .news-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 10px;
+        }
+
+        .news-title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .news-category {
+            font-size: 12px;
+            color: gray;
+            margin-bottom: 5px;
+        }
+
+        .news-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            font-size: 13px;
+            padding: 5px 8px;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .edit-btn { background: #0b1f3a; }
+        .delete-btn { background: #ff3b3b; }
+
+        /* FOOTER */
+        footer {
+            background: #1a1a1a;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="main-header">
+
+    <h1><a href="{% url 'home' %}">Ethio Global News</a></h1>
+
+    <!-- MAIN NAV -->
+    <nav class="main-nav">
+        <a href="{% url 'home' %}">Home</a>
+    </nav>
+
+    <!-- SUBSCRIBE -->
+    <form action="{% url 'subscribe' %}" method="post" id="subscribeForm">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Your email">
+        <button type="button" onclick="toggleSubscribe()">✉</button>
+    </form>
+
+    <!-- CATEGORY NAV (LIKE BASE.HTML) -->
+    <nav class="category-nav">
+        <a href="#">Afan Oromo</a>
+        <a href="#">Sport</a>
+        <a href="#">Weather</a>
+        <a href="#">War</a>
+        <a href="#">Global</a>
+        <a href="#">Ethiopia</a>
+        <a href="#">Africa</a>
+        <a href="#">Business</a>
+        <a href="#">Job vacancy</a>
+    </nav>
+
+</header>
+
+<!-- NEWS -->
+<div class="news-list">
+{% for news in latest_news %}
+<div class="news-card">
+
+    <!-- CLICKABLE CARD -->
+    <a href="{% url 'news_detail' news.id %}" style="text-decoration:none; color:inherit;">
+
+        {% if news.image %}
+            <img src="{{ news.image.url }}" alt="{{ news.title }}">
+        {% else %}
+            <img src="{% static 'images/placeholder.png' %}" alt="No image">
+        {% endif %}
+
+        <div class="news-content">
+            <div class="news-category">
+                {% if news.category %}
+                    {{ news.category.name }}
+                {% else %}
+                    Uncategorized
+                {% endif %}
+            </div>
+
+            <div class="news-title">
+                {{ news.title }}
+            </div>
+        </div>
+
+    </a>
+
+    <!-- ACTION BUTTONS -->
+    <div class="news-actions">
+        <a href="{% url 'news_edit' news.id %}" class="edit-btn">Edit</a>
+        <a href="{% url 'news_delete' news.id %}" class="delete-btn">Delete</a>
+    </div>
+
+</div>
+{% empty %}
+<p style="padding:20px;">No news available.</p>
+{% endfor %}
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <a href="{% url 'news_create' %}" style="color:white;">Post News</a>
+    <p>&copy; 2026 Ethio Global News</p>
+</footer>
+
+<!-- JS -->
+<script>
+function toggleSubscribe() {
+    const form = document.getElementById("subscribeForm");
+
+    if (!form.classList.contains("active")) {
+        form.classList.add("active");
+    } else {
+        form.submit();
+    }
+}
+</script>
+
+</body>
+</html>
