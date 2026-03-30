@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit News</title>
+</head>
+<body>
+
+<h2>Edit News</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label>Title</label><br>
+    {{ form.title }}<br><br>
+
+    <label>Category</label><br>
+    {{ form.category }}<br><br>
+
+    <label>Content</label><br>
+    {{ form.content }}<br><br>
+
+    <label>Image</label><br>
+    {{ form.image }}<br><br>
+
+    <button type="submit">Update</button>
+</form>
+
+<br>
+<a href="{% url 'home' %}">← Back to Home</a>
+
+</body>
+</html>
