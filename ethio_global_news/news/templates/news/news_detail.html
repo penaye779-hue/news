@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="news-detail">
+    <h1>{{ news_item.title }}</h1>
+    <p><strong>Category:</strong> {{ news_item.category.name }}</p>
+    <p><strong>Published:</strong> {{ news_item.published_at|date:"F j, Y" }}</p>
+
+    {% if news_item.image %}
+        <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" style="max-width:100%; height:auto;">
+    {% endif %}
+
+    <div class="news-content">
+        {{ news_item.content|linebreaks }}
+    </div>
+
+    <a href="{% url 'home' %}">← Back to Home</a>
+</div>
+{% endblock %}

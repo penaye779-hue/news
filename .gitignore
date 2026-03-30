@@ -1,0 +1,12 @@
+# Python cache files
+*.pyc
+__pycache__/
+
+# Django database
+db.sqlite3
+
+# VS Code settings
+.vscode/
+
+# Logs
+*.log

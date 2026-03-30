@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Ethio Global News{% endblock %}
+
+{% block content %}
+
+<!-- =====================
+     TOP NEWS + SIDE NEWS
+===================== -->
+<div class="top-news-container">
+
+    <!-- BIG TOP NEWS -->
+    {% if top_news %}
+    <div class="top-news">
+        {% if top_news.0.image %}
+            <img src="{{ top_news.0.image.url }}" alt="{{ top_news.0.title }}">
+        {% else %}
+            <img src="{% static 'images/placeholder.png' %}" alt="No image">
+        {% endif %}
+        <div class="top-overlay">
+            <h1>{{ top_news.0.title }}</h1>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- SIDE NEWS -->
+    <div class="side-news">
+        {% for news in side_news %}
+        <div class="side-card">
+            {% if news.image %}
+                <img src="{{ news.image.url }}" alt="{{ news.title }}">
+            {% else %}
+                <img src="{% static 'images/placeholder.png' %}" alt="No image">
+            {% endif %}
+            <p>{{ news.title|truncatechars:40 }}</p>
+        </div>
+        {% empty %}
+            <p>No side news available.</p>
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- =====================
+     LATEST NEWS GRID
+===================== -->
+<div class="section-title">
+    <h2>Latest News</h2>
+</div>
+
+<div class="news-list">
+    {% for news in latest_news %}
+    <div class="news-card">
+
+        <!-- News Image -->
+        <div class="news-image-wrapper">
+            {% if news.image %}
+                <img src="{{ news.image.url }}" class="news-image" alt="{{ news.title }}">
+            {% else %}
+                <img src="{% static 'images/placeholder.png' %}" class="news-image" alt="No image">
+            {% endif %}
+        </div>
+
+        <!-- Category -->
+        <div class="news-category">{{ news.category|title }}</div>
+
+        <!-- Title -->
+        <div class="news-title">{{ news.title }}</div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="news-actions">
+            <a href="{% url 'news_edit' news.id %}" class="edit-btn">Edit</a>
+            <a href="{% url 'news_delete' news.id %}" class="delete-btn">Delete</a>
+        </div>
+
+    </div>
+    {% empty %}
+        <p>No news available.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
