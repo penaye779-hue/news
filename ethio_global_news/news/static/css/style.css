@@ -19,96 +19,142 @@ body {
    HEADER
 ========================= */
 .main-header {
-    background-color: #0b1f3a;
+    background-color: #0b1f3a; /* dark blue */
     color: #fff;
-    padding: 20px 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-.logo h1 {
-    margin: 0;
-    font-size: 32px;
-    font-weight: bold;
-    color: #ff7a00;
+.main-header h1 a {
+    color: #ff7a00; /* logo orange */
+    text-decoration: none;
+    font-size: 28px;
 }
 
-/* Navigation */
-.main-nav a,
-.category-nav a {
-    color: #0b1f3a;
+.main-header .main-nav {
+    margin-top: 10px;
+}
+
+.main-header .main-nav a,
+.main-header .category-nav a {
+    color: #fff;          /* white by default */
     text-decoration: none;
     margin-right: 15px;
     font-weight: 500;
 }
 
-.main-nav a:hover,
-.category-nav a:hover {
-    color: #ff7a00;
+.main-header .main-nav a:hover,
+.main-header .category-nav a:hover {
+    color: #ff7a00;       /* orange on hover */
+}
+
+/* CATEGORY NAV */
+.category-nav {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* EMAIL SUBSCRIBE BUTTON */
+.main-header form {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.main-header form input {
+    display: none;
+    padding: 5px 8px;
+    margin-right: 5px;
+}
+
+.main-header form.active input {
+    display: inline-block;
+}
+
+.main-header form button {
+    background: #0b1f3a;  /* dark blue */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.main-header form button:hover {
+    background: #163d73;   /* slightly lighter blue */
 }
 
 /* =========================
    NEWS LIST
 ========================= */
-.news-item {
-    background: #fff;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
-
-.news-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.news-item h3 {
-    margin: 0 0 5px 0;
-    font-size: 18px;
-}
-
-.news-item p {
-    margin: 0;
-    color: rgba(0,0,0,0.7);
-    font-size: 14px;
-    line-height: 1.4em;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
-.sidebar {
-    background: #f0f0f0;
+.news-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
     padding: 20px;
+}
+
+.news-card {
+    background: #fff;
     border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
 }
-
-.category-nav a.active {
-    font-weight: bold;
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
-
-/* Newsletter form */
-form input[type="email"] {
+.news-card img {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    height: 180px;
+    object-fit: cover;
 }
 
-form button {
-    padding: 8px 12px;
-    background: #0b1f3a;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+.news-content {
+    padding: 10px;
 }
 
-form button:hover {
-    background: #163d73;
+.news-title a {
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    color: #000;
 }
+
+.news-title a:hover {
+    color: #ff7a00;
+}
+
+.news-desc {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+}
+
+.news-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.read-btn, .edit-btn, .delete-btn {
+    font-size: 13px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.read-btn { background: #ff7a00; }
+.edit-btn { background: #0b1f3a; }
+.delete-btn { background: #ff3b3b; }
 
 /* =========================
    FOOTER
@@ -121,36 +167,35 @@ footer {
     margin-top: 40px;
 }
 
-footer .post-news-btn {
-    display: inline-block;
-    background-color: #ff4d4f;
+footer a {
     color: #fff;
-    padding: 8px 16px;
-    border-radius: 6px;
     text-decoration: none;
-    margin-bottom: 10px;
 }
 
-footer .post-news-btn:hover {
-    background-color: #e33e41;
+footer a:hover {
+    color: #ff7a00;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-    .container {
-        width: 95%;
+    .news-list {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 600px) {
-    .logo h1 {
+    .main-header h1 a {
         font-size: 22px;
     }
 
     .main-nav a,
     .category-nav a {
         font-size: 12px;
+    }
+
+    .main-header form button {
+        padding: 4px 8px;
     }
 }

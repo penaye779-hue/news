@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.text import slugify
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -17,7 +19,14 @@ class Newsletter(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     content = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='news')
+
+    # ✅ FIXED related_name
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='newsletter_items'
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
@@ -27,34 +36,26 @@ class Newsletter(models.Model):
 
     def __str__(self):
         return self.title
+
+
 class Subscriber(models.Model):
     email = models.EmailField(unique=True)
     subscribed_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.email
+
+
+# ✅ KEEP ONLY ONE News model
 class News(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
-    image = models.ImageField(upload_to='news_images/', blank=True, null=True)
-    published_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.title
-class News(models.Model):
-    CATEGORY_CHOICES = [
-        ('sport', 'Sport'),
-        ('weather', 'Weather'),
-        ('war', 'War'),
-        ('global', 'Global'),
-        ('ethiopia', 'Ethiopia'),
-        ('africa', 'Africa'),
-        ('business', 'Business'),
-        ('job', 'Job vacancy'),
-    ]
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name='news_items'   # ✅ FIXED
+    )
 
-    title = models.CharField(max_length=200)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     image = models.ImageField(upload_to='news_images/', blank=True, null=True)
     content = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
